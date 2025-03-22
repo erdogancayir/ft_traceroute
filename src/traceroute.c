@@ -94,11 +94,11 @@ int run_traceroute(t_traceroute *tr)
                         sa.sin_family = AF_INET;
                         inet_pton(AF_INET, ip_str, &sa.sin_addr);
 
-                        if (getnameinfo((struct sockaddr *)&sa, sizeof(sa),
-                                        last_host, sizeof(last_host), NULL, 0, 0) != 0)
-                        {
+                        struct hostent *he = gethostbyaddr(&sa.sin_addr, sizeof(sa.sin_addr), AF_INET);
+                        if (he && he->h_name)
+                            strncpy(last_host, he->h_name, sizeof(last_host));
+                        else
                             strncpy(last_host, ip_str, sizeof(last_host));
-                        }
                     }
                     else
                     {
