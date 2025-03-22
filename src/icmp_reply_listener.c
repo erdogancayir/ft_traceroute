@@ -14,6 +14,7 @@ int recv_icmp_reply(t_traceroute *tr, struct timeval *start,
     struct sockaddr_in sender;
     socklen_t sender_len = sizeof(sender);
 
+    // Set timeout for the select() call using traceroute flags (converted from ms to sec/usec)
     struct timeval timeout;
     timeout.tv_sec = tr->flags.timeout / 1000;
     timeout.tv_usec = (tr->flags.timeout % 1000) * 1000;
@@ -37,8 +38,10 @@ int recv_icmp_reply(t_traceroute *tr, struct timeval *start,
     *rtt_out = (end.tv_sec - start->tv_sec) * 1000.0 +
                (end.tv_usec - start->tv_usec) / 1000.0;
 
+    // Convert sender's IP address to human-readable format (e.g., "8.8.8.8")
     inet_ntop(AF_INET, &(sender.sin_addr), ip_str, ip_str_len);
 
+    // Parse IP header from the raw buffer
     t_ip_header *ip_hdr = (t_ip_header *)buffer;
     int ip_header_len = (ip_hdr->version_ihl & 0x0F) * 4;
     t_icmp_header *icmp_hdr = (t_icmp_header *)(buffer + ip_header_len);

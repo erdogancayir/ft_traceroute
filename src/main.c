@@ -11,14 +11,7 @@ int main(int ac, char **av)
     // Check for --help
     if (strcmp(av[1], "--help") == 0)
     {
-        printf("Usage: %s [options] <target_ip_or_hostname>\n\n", av[0]);
-        printf("Options:\n");
-        printf("  --help           Show this help message and exit.\n");
-        printf("  -m <ttl>         Set maximum number of hops (max TTL).\n");
-        printf("  -q <count>       Set number of queries per hop.\n");
-        printf("  -t <timeout>     Set timeout per probe in milliseconds.\n");
-        printf("  -p <port>        Set starting destination port (default: 33434).\n");
-        printf("  -n               Do not resolve IP addresses to their domain names.\n");
+        print_help(av[0]);
         return EXIT_SUCCESS;
     }
 
@@ -50,4 +43,16 @@ int main(int ac, char **av)
         free_traceroute(tr);
         return EXIT_FAILURE;
     }
+}
+
+void print_help(char *program_name)
+{
+    printf("Usage: %s [options] <target_ip_or_hostname>\n\n", program_name);
+    printf("Options:\n");
+    printf("  --help           Show this help message and exit.\n");
+    printf("  -m <ttl>         Set maximum number of hops (max TTL).\n");
+    printf("  -q <count>       Set number of queries per hop.\n");
+    printf("  -t <timeout>     Set timeout per probe in milliseconds.\n");
+    printf("  -p <port>        Set starting destination port (default: 33434).\n");
+    printf("  -n               Do not resolve IP addresses to their domain names.\n");
 }

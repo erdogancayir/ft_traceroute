@@ -12,7 +12,7 @@ typedef struct s_flag {
     int query_count;      // -q <count>
     int timeout;          // -t <timeout>
     int start_port;       // -p <port>
-    int numeric_output_only;      // 1 = default, 0 = --dns-off
+    int numeric_output_only;    //-n
 } t_flag;
 
 

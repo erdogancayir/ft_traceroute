@@ -130,12 +130,6 @@ It mirrors the system's `traceroute` output with full flag and feature support.
 
 ---
 
-## 📜 License
-
-MIT License
-
----
-
 ## 🔗 References
 
 - [RFC 792 - ICMP](https://tools.ietf.org/html/rfc792)

@@ -37,5 +37,6 @@ int recv_icmp_reply(t_traceroute *tr, struct timeval *start, char *ip_str, size_
 
 int find_source_ip(char **source_ip, const char *dest_ip);
 
+void print_help(char *program_name);
 
 #endif
