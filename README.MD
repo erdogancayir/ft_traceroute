@@ -141,3 +141,53 @@ It mirrors the system's `traceroute` output with full flag and feature support.
 
 > "Traceroute is not just about destinations, it's about the journey of your packets." 🚀
 
+
+# 📡 Choosing the IP Header Structure: `struct ip` vs `struct iphdr`
+
+This project involves crafting raw TCP/IP packets manually, which requires defining an IP header structure. In C-based networking on Unix systems, you typically encounter two options:
+
+- `struct ip` → Standard POSIX/BSD-style structure
+- `struct iphdr` → Linux-specific structure
+
+Below is a comparison between these two structures and an explanation of **why `struct ip` is preferred** when building a portable Nmap-style port scanner.
+
+---
+
+## 🔍 Comparison Table
+
+| Feature                      | `struct ip` (`<netinet/ip.h>`)       | `struct iphdr` (`<linux/ip.h>`)     |
+|-----------------------------|---------------------------------------|-------------------------------------|
+| 📦 Standards Compliance      | ✅ POSIX/BSD-compliant                 | ❌ Linux-specific                   |
+| 💻 Platform Compatibility    | ✅ Linux, macOS, BSD                   | ❌ Linux only                       |
+| 📜 Field Naming              | Descriptive (`ip_v`, `ip_hl`, etc.)   | Compact (`version`, `ihl`, etc.)   |
+| 🔌 Raw Socket Support        | ✅ Fully supported                     | ✅ Fully supported                  |
+| 📦 Used by Nmap              | ✅ Yes                                 | ❌ No                               |
+| 🚀 Portability               | ✅ High                                | ❌ Low                              |
+
+---
+
+## 🧠 Why We Use `struct ip`
+
+When building a portable network scanner like Nmap, it's important for the code to run smoothly across various Unix-like systems (Linux, BSD, macOS).  
+For this reason:
+
+- **We choose `struct ip`** for its compatibility and adherence to standards.
+- `struct iphdr` is tightly coupled with the Linux kernel and is **not portable**.
+
+---
+
+## 📦 Required Headers
+
+```c
+#include <netinet/ip.h>   // for struct ip
+#include <netinet/tcp.h>  // for struct tcphdr
+```
+
+🏁 Conclusion
+If you're building a serious, cross-platform port scanner like Nmap:
+
+✅ Stick with struct ip
+❌ Avoid struct iphdr unless you're targeting Linux exclusively
+
+✨ For portability, readability, and long-term maintainability, struct ip is the better choice.
+
