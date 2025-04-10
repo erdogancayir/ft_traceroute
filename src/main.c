@@ -25,6 +25,8 @@ int main(int ac, char **av)
     int result = resolve_destination(target_hostname, &resolvedAddress);
     if (result == 0 || resolvedAddress == NULL)
     {
+        if (resolvedAddress)
+            free(resolvedAddress);
         fprintf(stderr, "Failed to resolve the target address\n");
         return EXIT_FAILURE;
     }
@@ -43,6 +45,9 @@ int main(int ac, char **av)
         free_traceroute(tr);
         return EXIT_FAILURE;
     }
+
+    free(resolvedAddress);
+    free_traceroute(tr);
 }
 
 void print_help(char *program_name)

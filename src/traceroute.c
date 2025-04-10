@@ -154,12 +154,6 @@ void free_traceroute(t_traceroute *tr)
             if (tr->network->target_ip)
                 free(tr->network->target_ip);
 
-            if (tr->network->hostname)
-                free(tr->network->hostname);
-
-            if (tr->network->hostname)
-                free(tr->network->hostname);
-
             free(tr->network);
         }
         
