@@ -85,7 +85,6 @@ typedef struct s_ip_header {
  * - The version_ihl and protocol fields help determine how the packet is processed.
  */
 
-int create_ip_header(t_ip_header *ip, const char *src_ip, const char *dest_ip, int ttl);
 void log_ip(t_ip_header *ip_hdr);
 
 

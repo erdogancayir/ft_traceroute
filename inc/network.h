@@ -9,7 +9,6 @@
 
 typedef struct s_network
 {
-    char *src_ip;
     char *hostname;
     char *target_ip;                    // Resolved IP string
     struct sockaddr_in dest_addr;      // sockaddr for sendto

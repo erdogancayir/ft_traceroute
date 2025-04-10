@@ -37,8 +37,6 @@ t_traceroute *init_traceroute(const char *target_ip, char *hostname, t_flag *fla
         return NULL;
     }
 
-    tr->network->src_ip = 
-
     tr->network->hostname = hostname;
 
     return tr;
